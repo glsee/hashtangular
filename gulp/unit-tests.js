@@ -17,6 +17,7 @@ function runTests (singleRun, done) {
   });
 
   var testFiles = bowerDeps.js.concat([
+    paths.src + '/app/index.js',
     paths.src + '/{app,components}/**/*.js'
   ]);
 
