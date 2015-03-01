@@ -12,6 +12,25 @@ function config
   });
 
   $stateProvider
+    .state('login', {
+      url: '/login',
+      templateUrl: 'app/login/login.html',
+      controller: 'LoginCtrl',
+      resolve: {
+        authenticated: function ($q, $location, $auth) {
+          var deferred = $q.defer();
+
+          if ($auth.isAuthenticated()) {
+            $location.url('/');
+            deferred.resolve(true);
+          } else {
+            deferred.resolve(false);
+          }
+
+          return deferred.promise;
+        }
+      }
+    })
     .state('main', {
       url: '/',
       templateUrl: 'app/main/main.html',
