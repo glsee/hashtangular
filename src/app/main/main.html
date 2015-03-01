@@ -2,25 +2,23 @@
 
   <div ng-include="'components/navbar/navbar.html'"></div>
 
-  <div class="jumbotron text-center">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">
-      <img src="assets/images/yeoman.png" alt="I'm Yeoman"><br>
-      Always a pleasure scaffolding your apps.
-    </p>
-    <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!</a></p>
-  </div>
-
   <div class="row">
-    <div class="col-sm-6 col-md-4" ng-repeat="awesomeThing in awesomeThings | orderBy:'rank'">
-      <div class="thumbnail">
-        <img class="pull-right" ng-src="assets/images/{{awesomeThing.logo}}" alt="{{awesomeThing.title}}">
-        <div class="caption">
-          <h3>{{awesomeThing.title}}</h3>
-          <p>{{awesomeThing.description}}</p>
-          <p><a ng-href="{{awesomeThing.url}}">{{awesomeThing.url}}</a></p>
+    <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 form-horizontal">
+
+      <div class="form-group has-feedback">
+        <label class="sr-only" for="search">Enter Your Search: </label>
+        <div class="input-group input-group-lg">
+          <input type="text" class="form-control" ng-model="search" id="search" value="#sumup" placeholder="Enter Your Search"/>
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="button">Search</button>
+          </span>
         </div>
       </div>
+
+      <ul>
+        <li>Search results</li>
+      </ul>
+
     </div>
   </div>
 
