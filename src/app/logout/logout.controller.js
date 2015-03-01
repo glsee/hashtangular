@@ -1,17 +1,20 @@
 'use strict';
 
-function LogoutCtrl($auth) {
+function LogoutCtrl($auth, $location) {
   var init = function() {
     if (!$auth.isAuthenticated()) {
+      $location.url('/login');
       return;
     }
 
     $auth.logout()
       .then(function() {
-        console.debug('logged out');
+        console.log('logged out');
+        $location.url('/login');
       })
       .catch(function(response) {
         console.error('failed to log out');
+        $location.url('/');
       });
   };
 
@@ -19,7 +22,8 @@ function LogoutCtrl($auth) {
 }
 
 LogoutCtrl.$inject = [
-  '$auth'
+  '$auth',
+  '$location'
 ];
 
 angular.module('hashtangular')
