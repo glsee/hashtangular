@@ -31,6 +31,11 @@ function config
         }
       }
     })
+    .state('logout', {
+      url: '/logout',
+      template: null,
+      controller: 'LogoutCtrl'
+    })
     .state('main', {
       url: '/',
       templateUrl: 'app/main/main.html',
