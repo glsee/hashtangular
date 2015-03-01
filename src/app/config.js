@@ -3,11 +3,16 @@
 function config
   (
     $stateProvider,
-    $urlRouterProvider
+    $urlRouterProvider,
+    $authProvider
   )
 {
+  $authProvider.twitter({
+    url: 'https://hashtangular.herokuapp.com/auth/twitter'
+  });
+
   $stateProvider
-    .state('home', {
+    .state('main', {
       url: '/',
       templateUrl: 'app/main/main.html',
       controller: 'MainCtrl'
