@@ -10,7 +10,8 @@ angular
       'ngSanitize',
       'ngResource',
       'ui.router',
-      'ui.bootstrap'
+      'ui.bootstrap',
+      'hashtangular.filters'
     ]
   )
 ;

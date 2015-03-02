@@ -23,7 +23,7 @@
           <blockquote>
             <p>{{tweet.text}}</p>
             <footer>
-              <cite><a href="http://twitter.com/{{tweet.user.screen_name}}" target="_blank">{{tweet.user.name}}</a> at <a href="http://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id_str}}" target="_blank">{{tweet.created_at}}</a></cite>
+              <cite><a href="http://twitter.com/{{tweet.user.screen_name}}" target="_blank">{{tweet.user.name}}</a> at <a href="http://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id_str}}" target="_blank">{{tweet.created_at | unixtime | date: 'medium' }}</a></cite>
             </footer>
           </blockquote>
         </li>
