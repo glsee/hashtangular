@@ -45,7 +45,17 @@ img.emoji {
   left: 50%;
 }
 
-blockquote:hover {
-  border-color: #ccc;
-  background-color: #eee;
+blockquote {
+  &:hover {
+    border-color: #ccc;
+    background-color: #eee;
+  }
+
+  a img {
+    margin: 1em auto;
+  }
+
+  a:first-child img {
+    margin-top: 0;
+  }
 }
