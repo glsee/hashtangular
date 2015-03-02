@@ -23,7 +23,7 @@
       <ul class="list-unstyled {{isSearching && 'text-muted'}}" ng-model="tweets">
         <li ng-repeat="tweet in tweets">
           <blockquote>
-            <figure ng-show="tweet.entities.media">
+            <figure ng-if="tweet.entities.media">
               <a ng-repeat="object in tweet.entities.media" href="{{object.expanded_url}}" target="_blank">
                 <img ng-if="(object.type === 'photo')" src="{{object.media_url_https}}" alt="Photo by {{tweet.user.name}}" class="img-responsive"/>
               </a>
