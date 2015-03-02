@@ -12,7 +12,7 @@ function config
 
   $stateProvider
     .state('main', {
-      url: '/{search:[a-zA-Z0-9~_.!*\'(),%-]*}',
+      url: '/{search:.*}',
       templateUrl: 'app/main/main.html',
       controller: 'MainCtrl'
     });
