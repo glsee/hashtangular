@@ -5,6 +5,7 @@ function MainCtrl($scope, $stateParams, $state) {
 
   var init = function() {
     $scope.isSearching = false;
+    $scope.isLoadingMore = false;
     $scope.search = decodeURIComponent($stateParams.search);
 
     // Instantiate the client proxy
@@ -21,10 +22,19 @@ function MainCtrl($scope, $stateParams, $state) {
 
   var searchTweets = function() {
     $scope.isSearching = true;
-    $scope.cachedSearch = $scope.search;
+
+    // only cache for the first search on a search term
+    if (!$scope.isLoadingMore) {
+      $scope.cachedSearch = $scope.search;
+    }
 
     // Add inputs
     tweetsChoreo.setInput('Query', $scope.search);
+
+    if ($scope.isLoadingMore) {
+      console.log($scope.tweets[$scope.tweets.length-1].id_str);
+      tweetsChoreo.setInput('MaxId', $scope.tweets[$scope.tweets.length-1].id_str);
+    }
 
     // Run the Choreo, specifying success and error callback handlers
     tweetsChoreo.execute(showResult, showError);
@@ -34,14 +44,19 @@ function MainCtrl($scope, $stateParams, $state) {
   var showResult = function(outputs, outputFilters) {
     var response;
 
+    if (!$scope.isLoadingMore) {
+      $scope.tweets = [];
+    }
+
     if (outputs.Response) {
       console.log(outputs);
       response = JSON.parse(outputs.Response);
-      $scope.tweets = response.statuses;
+      $scope.tweets = $scope.tweets.concat(response.statuses);
       console.log($scope.tweets);
     }
 
     $scope.isSearching = false;
+    $scope.isLoadingMore = false;
     $scope.$apply();
   };
 
@@ -63,6 +78,7 @@ function MainCtrl($scope, $stateParams, $state) {
     $scope.error_message = matches[1];
 
     $scope.isSearching = false;
+    $scope.isLoadingMore = false;
     $scope.searchForm.search.$setValidity('server', false);
     $scope.$apply();
   };
@@ -73,6 +89,11 @@ function MainCtrl($scope, $stateParams, $state) {
     } else {
       searchTweets();
     }
+  };
+
+  $scope.clickLoadMore = function() {
+    $scope.isLoadingMore = true;
+    searchTweets();
   };
 
   init();
