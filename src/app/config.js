@@ -4,32 +4,17 @@ function config
   (
     $stateProvider,
     $urlRouterProvider,
-    $authProvider
+    $httpProvider
   )
 {
-  $authProvider.twitter({
-    url: 'https://hashtangular.herokuapp.com/auth/twitter'
-  });
+
+  $httpProvider.defaults.headers.common['Accept']= 'application/json';
 
   $stateProvider
     .state('login', {
       url: '/login',
       templateUrl: 'app/login/login.html',
-      controller: 'LoginCtrl',
-      resolve: {
-        authenticated: function ($q, $location, $auth) {
-          var deferred = $q.defer();
-
-          if ($auth.isAuthenticated()) {
-            $location.url('/');
-            deferred.resolve(true);
-          } else {
-            deferred.resolve(false);
-          }
-
-          return deferred.promise;
-        }
-      }
+      controller: 'LoginCtrl'
     })
     .state('logout', {
       url: '/logout',
@@ -37,23 +22,9 @@ function config
       controller: 'LogoutCtrl'
     })
     .state('main', {
-      url: '/',
+      url: '/{search:[a-zA-Z0-9~_.!*\'(),%-]*}',
       templateUrl: 'app/main/main.html',
-      controller: 'MainCtrl',
-      resolve: {
-        authenticated: function ($q, $location, $auth) {
-          var deferred = $q.defer();
-
-          if (!$auth.isAuthenticated()) {
-            $location.url('/login');
-            deferred.resolve(false);
-          } else {
-            deferred.resolve(true);
-          }
-
-          return deferred.promise;
-        }
-      }
+      controller: 'MainCtrl'
     });
 
   $urlRouterProvider.otherwise('/');

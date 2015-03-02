@@ -10,8 +10,7 @@ angular
       'ngSanitize',
       'ngResource',
       'ui.router',
-      'ui.bootstrap',
-      'satellizer'
+      'ui.bootstrap'
     ]
   )
 ;
