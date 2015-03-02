@@ -28,6 +28,38 @@ body {
   }
 }
 
+#backToTop.container {
+  position: fixed;
+  opacity: 0;
+  top: 5px;
+  left: 50%;
+  -webkit-transition: .5s linear all;
+  -transition: .5s linear all;
+  z-index: 5;
+
+  &.active {
+    opacity: 1;
+    -webkit-transition: .5s linear all;
+    -transition: .5s linear all;
+  }
+}
+
+@media (min-width: 768px) {
+  #backToTop.container {
+    margin-left: -375px;
+  }
+}
+@media (min-width: 992px) {
+  #backToTop.container {
+    margin-left: -485px;
+  }
+}
+@media (min-width: 1200px) {
+  #backToTop.container {
+    margin-left: -585px;
+  }
+}
+
 img.emoji {
   height: 1em;
   width: 1em;

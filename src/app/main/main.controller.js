@@ -1,6 +1,6 @@
 'use strict';
 
-function MainCtrl($scope, $stateParams, $state, proxy_url) {
+function MainCtrl($scope, $stateParams, $state, proxy_url, $document) {
   var temboo, tweetsChoreo;
 
   var init = function() {
@@ -96,6 +96,10 @@ function MainCtrl($scope, $stateParams, $state, proxy_url) {
     searchTweets();
   };
 
+  $scope.clickBackToTop = function() {
+    $document.scrollTopAnimated(0);
+  };
+
   init();
 }
 
@@ -103,7 +107,8 @@ MainCtrl.$inject = [
   '$scope',
   '$stateParams',
   '$state',
-  'proxy_url'
+  'proxy_url',
+  '$document'
 ];
 
 angular.module('hashtangular')

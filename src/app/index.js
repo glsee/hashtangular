@@ -11,6 +11,8 @@ angular
       'ngResource',
       'ui.router',
       'ui.bootstrap',
+      'Mac',
+      'duScroll',
       'hashtangular.filters.unixtime',
       'hashtangular.filters.twemoji',
       'hashtangular.filters.twitter_text',
