@@ -15,8 +15,15 @@
         </div>
       </div>
 
-      <ul>
-        <li ng-repeat="tweet in tweets"></li>
+      <ul class="list-unstyled" ng-model="tweets">
+        <li ng-repeat="tweet in tweets">
+          <blockquote>
+            <p>{{tweet.text}}</p>
+            <footer>
+              <cite><a href="http://twitter.com/{{tweet.user.screen_name}}" target="_blank">{{tweet.user.name}}</a> at <a href="http://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id_str}}" target="_blank">{{tweet.created_at}}</a></cite>
+            </footer>
+          </blockquote>
+        </li>
       </ul>
 
     </div>
