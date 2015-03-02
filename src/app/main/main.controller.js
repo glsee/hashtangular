@@ -4,6 +4,7 @@ function MainCtrl($scope, $stateParams, $state) {
   var temboo, tweetsChoreo;
 
   var init = function() {
+    $scope.isSearching = false;
     $scope.search = decodeURIComponent($stateParams.search);
 
     // Instantiate the client proxy
@@ -19,6 +20,9 @@ function MainCtrl($scope, $stateParams, $state) {
   };
 
   var searchTweets = function() {
+    $scope.isSearching = true;
+    $scope.cachedSearch = $scope.search;
+
     // Add inputs
     tweetsChoreo.setInput('Query', $scope.search);
 
@@ -34,18 +38,33 @@ function MainCtrl($scope, $stateParams, $state) {
       console.log(outputs);
       response = JSON.parse(outputs.Response);
       $scope.tweets = response.statuses;
-      $scope.$apply();
       console.log($scope.tweets);
     }
+
+    $scope.isSearching = false;
+    $scope.$apply();
   };
 
   // Error callback
   var showError = function(error) {
+    var message, matches;
+
     if(error.type === 'DisallowedInput') {
       console.log(error.type + ' error: ' + error.inputName);
     } else {
       console.log(error.type + ' error: ' + error.message);
     }
+
+    message = JSON.parse(error.message);
+    matches = message.execution.lasterror.match(/\{.*"message":"(.+?)"\}/)
+
+    console.log(matches);
+
+    $scope.error_message = matches[1];
+
+    $scope.isSearching = false;
+    $scope.searchForm.search.$setValidity('server', false);
+    $scope.$apply();
   };
 
   $scope.clickSearch = function() {
