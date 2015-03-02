@@ -8,15 +8,15 @@
       <div class="form-group has-feedback">
         <label class="sr-only" for="search">Enter Your Search: </label>
         <div class="input-group input-group-lg">
-          <input type="text" class="form-control" ng-model="search" id="search" value="#sumup" placeholder="Enter Your Search"/>
+          <input type="text" class="form-control" ng-model="search" id="search" placeholder="Enter Your Search"/>
           <span class="input-group-btn">
-            <button class="btn btn-primary" type="button">Search</button>
+            <button class="btn btn-primary" type="button" ng-click="searchTweets()">Search</button>
           </span>
         </div>
       </div>
 
       <ul>
-        <li>Search results</li>
+        <li ng-repeat="tweet in tweets"></li>
       </ul>
 
     </div>
