@@ -1,22 +1,26 @@
 'use strict';
 
-function MainCtrl($scope) {
+function MainCtrl($scope, $stateParams, $state) {
   var temboo, tweetsChoreo;
 
   var init = function() {
+    $scope.search = decodeURIComponent($stateParams.search);
+
     // Instantiate the client proxy
     // You may need to adjust the path to reflect the URI of your server proxy
     temboo = new TembooProxy('http://localhost:3000/proxy-server');
 
     // Add the tweets Choreo
     tweetsChoreo = temboo.addChoreo('jsTweets');
+
+    if ($scope.search) {
+      searchTweets();
+    }
   };
 
-  $scope.searchTweets = function() {
-    var q = $scope.search;
-
+  var searchTweets = function() {
     // Add inputs
-    tweetsChoreo.setInput('Query', q);
+    tweetsChoreo.setInput('Query', $scope.search);
 
     // Run the Choreo, specifying success and error callback handlers
     tweetsChoreo.execute(showResult, showError);
@@ -44,13 +48,21 @@ function MainCtrl($scope) {
     }
   };
 
-  $scope.search = "#sumup";
+  $scope.clickSearch = function() {
+    if ($stateParams.search !== $scope.search) {
+      $state.go('main', {search: $scope.search});
+    } else {
+      searchTweets();
+    }
+  };
 
   init();
 }
 
 MainCtrl.$inject = [
-  '$scope'
+  '$scope',
+  '$stateParams',
+  '$state'
 ];
 
 angular.module('hashtangular')
