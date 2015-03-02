@@ -7,5 +7,5 @@ function unixtime() {
 }
 
 angular
-  .module('hashtangular.filters', [])
+  .module('hashtangular.filters.unixtime', [])
   .filter('unixtime', unixtime);

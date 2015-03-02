@@ -11,7 +11,8 @@ angular
       'ngResource',
       'ui.router',
       'ui.bootstrap',
-      'hashtangular.filters'
+      'hashtangular.filters.unixtime',
+      'hashtangular.filters.twemoji'
     ]
   )
 ;
