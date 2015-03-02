@@ -21,7 +21,7 @@
       <div class="sk-spinner sk-spinner-pulse" ng-show="isSearching"></div>
 
       <ul class="list-unstyled {{isSearching && 'text-muted'}}" ng-model="tweets">
-        <li ng-repeat="tweet in tweets">
+        <li ng-repeat="tweet in tweets" class="animate-repeat">
           <blockquote>
             <figure ng-if="tweet.entities.media">
               <a ng-repeat="object in tweet.entities.media" href="{{object.expanded_url}}" target="_blank">
