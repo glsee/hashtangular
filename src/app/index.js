@@ -12,7 +12,8 @@ angular
       'ui.router',
       'ui.bootstrap',
       'hashtangular.filters.unixtime',
-      'hashtangular.filters.twemoji'
+      'hashtangular.filters.twemoji',
+      'hashtangular.filters.twitter_text'
     ]
   )
 ;
