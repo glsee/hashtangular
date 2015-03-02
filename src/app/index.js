@@ -13,7 +13,8 @@ angular
       'ui.bootstrap',
       'hashtangular.filters.unixtime',
       'hashtangular.filters.twemoji',
-      'hashtangular.filters.twitter_text'
+      'hashtangular.filters.twitter_text',
+      'hashtangular.constant'
     ]
   )
 ;

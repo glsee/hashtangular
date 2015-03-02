@@ -1,6 +1,6 @@
 'use strict';
 
-function MainCtrl($scope, $stateParams, $state) {
+function MainCtrl($scope, $stateParams, $state, proxy_url) {
   var temboo, tweetsChoreo;
 
   var init = function() {
@@ -10,10 +10,7 @@ function MainCtrl($scope, $stateParams, $state) {
 
     // Instantiate the client proxy
     // You may need to adjust the path to reflect the URI of your server proxy
-    temboo = new TembooProxy('http://localhost:3000/proxy-server');
-
-    // Add the tweets Choreo
-    tweetsChoreo = temboo.addChoreo('jsTweets');
+    temboo = new TembooProxy(proxy_url);
 
     if ($scope.search) {
       searchTweets();
@@ -22,6 +19,9 @@ function MainCtrl($scope, $stateParams, $state) {
 
   var searchTweets = function() {
     $scope.isSearching = true;
+
+    // Add the tweets Choreo
+    tweetsChoreo = temboo.addChoreo('jsTweets');
 
     // only cache for the first search on a search term
     if (!$scope.isLoadingMore) {
@@ -102,7 +102,8 @@ function MainCtrl($scope, $stateParams, $state) {
 MainCtrl.$inject = [
   '$scope',
   '$stateParams',
-  '$state'
+  '$state',
+  'proxy_url'
 ];
 
 angular.module('hashtangular')
