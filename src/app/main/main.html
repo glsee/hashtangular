@@ -23,6 +23,11 @@
       <ul class="list-unstyled {{isSearching && 'text-muted'}}" ng-model="tweets">
         <li ng-repeat="tweet in tweets">
           <blockquote>
+            <figure ng-show="tweet.entities.media">
+              <a ng-repeat="object in tweet.entities.media" href="{{object.expanded_url}}" target="_blank">
+                <img ng-if="(object.type === 'photo')" src="{{object.media_url_https}}" alt="Photo by {{tweet.user.name}}" class="img-responsive"/>
+              </a>
+            </figure>
             <p ng-bind-html="tweet.text | twitter_text | twemoji"></p>
             <footer>
               <cite><a href="http://twitter.com/{{tweet.user.screen_name}}" target="_blank" ng-bind-html="tweet.user.name | twemoji"></a> at <a href="http://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id_str}}" target="_blank">{{tweet.created_at | unixtime | date: 'medium' }}</a></cite>
