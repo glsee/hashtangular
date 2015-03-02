@@ -18,6 +18,8 @@
         </div>
       </form>
 
+      <div class="sk-spinner sk-spinner-pulse" ng-show="isSearching"></div>
+
       <ul class="list-unstyled {{isSearching && 'text-muted'}}" ng-model="tweets">
         <li ng-repeat="tweet in tweets">
           <blockquote>

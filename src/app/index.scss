@@ -14,3 +14,13 @@ img.emoji {
   margin: 0 .05em 0 .1em;
   vertical-align: -.1em;
 }
+
+.sk-spinner-pulse.sk-spinner {
+  background-color: darken(#428bca, 6.5%) !important;
+  width: 200px;
+  height: 200px;
+  margin: -100px auto auto -100px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
