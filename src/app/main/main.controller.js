@@ -1,16 +1,12 @@
 'use strict';
 
-function MainCtrl($scope, $stateParams, $state, proxy_url, $document) {
-  var temboo, tweetsChoreo;
+function MainCtrl($scope, $stateParams, $state, $document, TweetsChoreo) {
+  var tweetsChoreo;
 
   var init = function() {
     $scope.isSearching = false;
     $scope.isLoadingMore = false;
     $scope.search = decodeURIComponent($stateParams.search);
-
-    // Instantiate the client proxy
-    // You may need to adjust the path to reflect the URI of your server proxy
-    temboo = new TembooProxy(proxy_url);
 
     if ($scope.search) {
       searchTweets();
@@ -21,7 +17,7 @@ function MainCtrl($scope, $stateParams, $state, proxy_url, $document) {
     $scope.isSearching = true;
 
     // Add the tweets Choreo
-    tweetsChoreo = temboo.addChoreo('jsTweets');
+    tweetsChoreo = TweetsChoreo.initialize();
 
     // only cache for the first search on a search term
     if (!$scope.isLoadingMore) {
@@ -37,20 +33,19 @@ function MainCtrl($scope, $stateParams, $state, proxy_url, $document) {
     }
 
     // Run the Choreo, specifying success and error callback handlers
-    tweetsChoreo.execute(showResult, showError);
+    tweetsChoreo.execute().then(showResult, showError);
   };
 
   // Success callback
-  var showResult = function(outputs, outputFilters) {
+  var showResult = function(data) {
     var response;
 
     if (!$scope.isLoadingMore) {
       $scope.tweets = [];
     }
 
-    if (outputs.Response) {
-      console.log(outputs);
-      response = JSON.parse(outputs.Response);
+    if (data.Response) {
+      response = JSON.parse(data.Response);
       $scope.tweets = $scope.tweets.concat(response.statuses);
       console.log($scope.tweets);
     }
@@ -70,12 +65,13 @@ function MainCtrl($scope, $stateParams, $state, proxy_url, $document) {
       console.log(error.type + ' error: ' + error.message);
     }
 
-    message = JSON.parse(error.message);
-    matches = message.execution.lasterror.match(/\{.*"message":"(.+?)"\}/)
-
-    console.log(matches);
-
-    $scope.error_message = matches[1];
+    try {
+      message = JSON.parse(error.message);
+      matches = message.execution.lasterror.match(/\{.*"message":"(.+?)"\}/);
+      $scope.error_message = matches[1];
+    } catch (e) {
+      $scope.error_message = 'Message from the proxy server: ' + error.message;
+    }
 
     $scope.isSearching = false;
     $scope.isLoadingMore = false;
@@ -107,8 +103,8 @@ MainCtrl.$inject = [
   '$scope',
   '$stateParams',
   '$state',
-  'proxy_url',
-  '$document'
+  '$document',
+  'TweetsChoreo'
 ];
 
 angular.module('hashtangular')
