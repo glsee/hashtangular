@@ -4,7 +4,9 @@ function config
   (
     $stateProvider,
     $urlRouterProvider,
-    $httpProvider
+    $httpProvider,
+    TweetsChoreoProvider,
+    proxy_url
   )
 {
 
@@ -18,6 +20,8 @@ function config
     });
 
   $urlRouterProvider.otherwise('/');
+
+  TweetsChoreoProvider.proxy_url = proxy_url;
 }
 
 angular
