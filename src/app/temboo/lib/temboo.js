@@ -38,7 +38,7 @@
 	 * @param {Object.<string, string|number>} inputs - The key/value inputs for this choreography.
 	 */
 	var TembooProxiedChoreography = function(proxy, name, inputs) {
-		
+
 		var outputFilters;
 
 		if(typeof inputs !== 'object') {
@@ -94,7 +94,7 @@
 	var TembooProxy = function(url, postVar) {
 
 		var choreos = {};
-		
+
 		if(typeof postVar === 'undefined' || postVar === true) {
 			postVar = 'temboo_proxy';
 		}
