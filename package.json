@@ -1,6 +1,7 @@
 {
   "name": "hashtangular",
   "version": "0.0.0",
+  "postinstall" : "bower install",
   "dependencies": {},
   "devDependencies": {
     "browser-sync": "~1.7.1",
